@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 remote video handling</title>
+</head>
+<body>
+	<video id="video" controls="" preload="none" mediagroup="myVideoGroup" poster="http://media.w3.org/2010/05/sintel/poster.png">
+	<!--
+	      <source id='mp4'
+	        src="../sintel/trailer.mp4"
+	        type='video/mp4'>
+	      <source id='webm'
+	        src="../sintel/trailer.webm"
+	        type='video/webm'>
+	-->
+      <source id="mp4" src="http://media.w3.org/2010/05/sintel/trailer.mp4" type="video/mp4">
+      <source id="webm" src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">
+      <source id="ogv" src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">
+
+      <p>Your user agent does not support the HTML5 Video element.</p>
+    </video>
+    <button onclick="playVideo()">play video</button>
+    <button onclick="stopVideo()">stop video</button>
+	<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script type="text/javascript">
+		var socket = io();
+		var video = $('video');
+
+		video[0].addEventListener('play', function(e) {
+			socket.emit('play', {action: 'play'}); // I use the additional data sent for parameters on the action.
+		});
+
+		socket.on('play', function(e) {
+			console.log(e);
+			video[0].play();
+		});
+
+		socket.on('stop', function(e) {
+			console.log(e);
+			video[0].pause();
+		});
+
+		function playVideo() {
+			console.log("Playing video...");
+			socket.emit('play', {action: 'play'}); // I use the additional data sent for parameters on the action.
+		}
+
+		function stopVideo() {
+			console.log("Stopping video...");
+			socket.emit('stop', {action: 'stop'}); // I use the additional data sent for parameters on the action.
+		}
+	</script>
+</body>
+</html>

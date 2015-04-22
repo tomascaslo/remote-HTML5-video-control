@@ -1,0 +1,15 @@
+{
+  "name": "RemoteHTML5VideoHandler",
+  "version": "0.0.1",
+  "description": "Proof of concept of HTML5 video event handling from remote client.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tomascaslo",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~4.12.3",
+    "socket.io": "~1.3.5"
+  }
+}
